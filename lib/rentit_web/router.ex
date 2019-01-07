@@ -24,6 +24,7 @@ defmodule RentitWeb.Router do
     pipe_through :api
 
     post "/search", PlantApiController, :search
+    post "/order", PlantApiController, :order
   end
 
   # Other scopes may use custom stacks.
