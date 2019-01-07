@@ -1,0 +1,59 @@
+defmodule WhiteBreadContext do
+  use WhiteBread.Context
+  use Hound.Helpers
+
+  alias Rentit.{Repo,Plant}
+
+
+  feature_starting_state fn  ->
+    Application.ensure_all_started(:hound)
+    %{}
+  end
+
+  scenario_starting_state fn _state ->
+    Hound.start_session
+    Ecto.Adapters.SQL.Sandbox.checkout(Repo)
+    Ecto.Adapters.SQL.Sandbox.mode(Repo, {:shared, self()})
+    %{}
+  end
+
+  scenario_finalize fn _status, _state ->
+    Ecto.Adapters.SQL.Sandbox.checkin(Repo)
+    #Hound.end_session
+    nil
+  end
+
+  given_ ~r/^the following plants$/, fn state ->
+    {:ok, state}
+  end
+
+  and_ ~r/^I want to rent "(?<argument_one>[^"]+)"$/,
+  fn state, %{argument_one: _argument_one} ->
+    {:ok, state}
+  end
+
+  and_ ~r/^I open RentIt' web page$/, fn state ->
+    {:ok, state}
+  end
+
+  and_ ~r/^I enter the plant name$/, fn state ->
+    {:ok, state}
+  end
+
+  and_ ~r/^I enter the start_date$/, fn state ->
+    {:ok, state}
+  end
+
+  and_ ~r/^I enter the end_date$/, fn state ->
+    {:ok, state}
+  end
+
+  when_ ~r/^I submit the request$/, fn state ->
+    {:ok, state}
+  end
+
+  then_ ~r/^I should receive a list of free plants$/, fn state ->
+    {:ok, state}
+  end
+
+end
