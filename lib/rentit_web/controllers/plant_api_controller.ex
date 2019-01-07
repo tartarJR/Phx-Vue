@@ -29,4 +29,15 @@ defmodule RentitWeb.PlantApiController do
 
   end
 
+  def order(conn, %{"start_date" => start_date, "end_date" => end_date, "cost" => cost, "plant_id" => plant_id}) do
+
+    PurchaseOrder.changeset(%PurchaseOrder{}, %{start_date: start_date, end_date: end_date, cost: cost, plant_id: plant_id})
+    |> Repo.insert!
+
+    conn
+    |> put_status(201)
+    |> json(%{msg: "Order Placed"})
+
+  end
+
 end
