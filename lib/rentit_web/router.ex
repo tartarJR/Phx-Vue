@@ -19,6 +19,13 @@ defmodule RentitWeb.Router do
     get "/", PageController, :index
   end
 
+
+  scope "/api", RentitWeb do
+    pipe_through :api
+
+    post "/search", PlantApiController, :search
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", RentitWeb do
   #   pipe_through :api
