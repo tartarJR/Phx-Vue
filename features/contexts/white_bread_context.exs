@@ -23,36 +23,47 @@ defmodule WhiteBreadContext do
     nil
   end
 
-  given_ ~r/^the following plants$/, fn state ->
+  given_ ~r/^the following plants$/, fn state, %{table_data: table} ->
+
+    table
+    |> Enum.map(fn plant -> Plant.changeset(%Plant{}, plant) end)
+    |> Enum.each(fn changeset -> Repo.insert!(changeset) end)
+
     {:ok, state}
   end
 
-  and_ ~r/^I want to rent "(?<argument_one>[^"]+)"$/,
-  fn state, %{argument_one: _argument_one} ->
-    {:ok, state}
+  and_ ~r/^I want to rent "(?<name>[^"]+)"$/,
+  fn state, %{name: name} ->
+    {:ok, state |> Map.put(:name, name)}
   end
 
   and_ ~r/^I open RentIt' web page$/, fn state ->
+    navigate_to "/#/"
     {:ok, state}
   end
 
   and_ ~r/^I enter the plant name$/, fn state ->
+    fill_field({:id, "name"}, state[:name])
     {:ok, state}
   end
 
   and_ ~r/^I enter the start_date$/, fn state ->
+    fill_field({:id, "start-date"}, "2019-01-13")
     {:ok, state}
   end
 
   and_ ~r/^I enter the end_date$/, fn state ->
+    fill_field({:id, "end-date"}, "2019-01-17")
     {:ok, state}
   end
 
   when_ ~r/^I submit the request$/, fn state ->
+    click({:id, "search-plant"})
     {:ok, state}
   end
 
   then_ ~r/^I should receive a list of free plants$/, fn state ->
+    assert visible_in_page? ~r/Plants Found/
     {:ok, state}
   end
 
