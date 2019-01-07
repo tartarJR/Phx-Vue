@@ -4,7 +4,7 @@ use Mix.Config
 # you can enable the server option below.
 config :rentit, RentitWeb.Endpoint,
   http: [port: 4002],
-  server: false
+  server: true
 
 # Print only warnings and errors during test
 config :logger, level: :warn
@@ -16,3 +16,6 @@ config :rentit, Rentit.Repo,
   database: "rentit_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
+
+  config :hound, driver: "chrome_driver"
+  config :rentit, sql_sandbox: true
