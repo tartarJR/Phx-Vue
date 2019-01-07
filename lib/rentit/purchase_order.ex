@@ -7,7 +7,7 @@ defmodule Rentit.PurchaseOrder do
     field :cost, :float
     field :end_date, :date
     field :start_date, :date
-    belongs_to :item, Rentit.Plant, foreign_key: :plant_id
+    belongs_to :plant, Rentit.Plant, foreign_key: :plant_id
 
     timestamps()
   end

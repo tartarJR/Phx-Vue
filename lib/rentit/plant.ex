@@ -7,7 +7,7 @@ defmodule Rentit.Plant do
     field :description, :string
     field :name, :string
     field :price_per_day, :float
-    has_many :bids, Rentit.PurchaseOrder
+    has_many :purchaseOrders, Rentit.PurchaseOrder
 
     timestamps()
   end
