@@ -13,19 +13,20 @@ defmodule RentitWeb.PlantApiController do
     query2 = from p in Plant,
               distinct: p.name,
               left_join: po in PurchaseOrder, on: p.id == po.plant_id,
-              where: (po.start_date <= ^start_date and po.end_date >= ^end_date) and p.name == ^name,
+              where: po.start_date <= ^start_date and po.end_date >= ^end_date,
               select: p.name
 
     names = Repo.all(query2)
 
     query = from p in Plant,
-              where: p.name not in ^names,
+              where: p.name not in ^names and p.name == ^name,
               select: p
 
     plants = Repo.all(query)
-    |> (Enum.map (fn(plant) -> %{name: plant.name, description: plant.description, price_per_day: plant.price_per_day} end))
+    |> (Enum.map (fn(plant) -> %{id: plant.id, name: plant.name, description: plant.description, price_per_day: plant.price_per_day} end))
 
     conn |> json(%{plants: plants})
 
   end
+
 end
