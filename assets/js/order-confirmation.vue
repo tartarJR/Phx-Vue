@@ -2,7 +2,8 @@
     
     <div>
 
-        <h3>Auction details</h3>
+        <h3>Order Details</h3>
+
         <div class="form-group">
 
             <label class="control-label col-sm-3">Name: {{this.name}}</label>
@@ -29,9 +30,11 @@
 
         <div class="form-group">
         
-            <label class="control-label col-sm-3">Cost: {{this.pricePerDay}}</label>
+            <label class="control-label col-sm-3">Cost: {{cost}}</label>
 
         </div>
+
+        <router-link :to="{ path: '/'}">Go back</router-link>
 
     </div>
 
@@ -85,7 +88,7 @@ export default {
       
         orderPlant: function() {
 
-            axios.post("/api/order", {start_date: this.startDate, end_date: this.endDate, cost: this.pricePerDay, plant_id: this.plantId})
+            axios.post("/api/order", {start_date: this.startDate, end_date: this.endDate, cost: this.cost, plant_id: this.plantId})
                     .then(response => {
                         this.response = response.data.msg
                     }).catch(error => {
@@ -98,7 +101,14 @@ export default {
 
     computed: {
       
+        cost: function () {
         
+            var datDiff = Math.abs(new Date(this.startDate).getTime() - new Date(this.endDate).getTime());
+            var diffDays = Math.ceil(datDiff / (1000 * 3600 * 24)); 
+
+            return (diffDays + 1) * this.pricePerDay
+        
+        }
 
     }
 
