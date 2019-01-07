@@ -27,9 +27,11 @@
         </div>
 
         <button type="submit" id="search-plant" class="btn btn-primary" v-on:click="searchPlants">Search Plants</button>
+
+        <div id='list-wrapper' class="mt-3" v-if="plants.length > 0">
         
-        <div id='list-wrapper' v-if="plants.length > 0">
-        
+            <h3>Plants Found</h3>
+
             <table class="table">
                 <thead>
                     <tr>
@@ -51,6 +53,12 @@
         
         </div>
 
+        <div class="mt-3" v-else>
+
+            <h3>No plants found</h3>
+
+        </div>
+
     </div>
 
 </template>
@@ -62,6 +70,7 @@ import axios from "axios";
 
 export default {
     data: function() {
+      
       return {
         
         name: "",
@@ -73,6 +82,7 @@ export default {
         plants: []
 
       }
+
     },
 
     mounted: function() {
