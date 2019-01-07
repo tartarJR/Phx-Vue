@@ -93,7 +93,12 @@ export default {
       
         searchPlants: function() {
 
-
+            axios.post("/api/search", {name: this.name, start_date: this.startDate, end_date: this.endDate})
+                    .then(response => {
+                        this.plants = response.data.plants
+                    }).catch(error => {
+                        console.log(error);
+                    });
 
         }
 
