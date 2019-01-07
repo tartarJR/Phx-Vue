@@ -15,7 +15,7 @@ defmodule Rentit.PurchaseOrder do
   @doc false
   def changeset(purchase_order, attrs) do
     purchase_order
-    |> cast(attrs, [:start_date, :end_date, :cost])
-    |> validate_required([:start_date, :end_date, :cost])
+    |> cast(attrs, [:start_date, :end_date, :cost, :plant_id])
+    |> validate_required([:start_date, :end_date, :cost, :plant_id])
   end
 end
