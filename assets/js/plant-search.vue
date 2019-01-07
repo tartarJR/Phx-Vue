@@ -46,7 +46,11 @@
                         <td>{{ plant.name }}</td>
                         <td>{{ plant.description }}</td>
                         <td>{{ plant.price_per_day }}</td>
-                        <td>Select</td>
+                        <td>
+
+                            <router-link :id="plant.id" class="btn btn-primary" :to="{ name: 'select-plant', params: { plant_id: plant.id, name: plant.name, start_date: startDate, end_date: endDate, price_per_day: plant.price_per_day }}">Select</router-link>
+
+                        </td>
                     </tr>
                 </tbody>
             </table> 
